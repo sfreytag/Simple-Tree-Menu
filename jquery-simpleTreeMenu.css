@@ -1,0 +1,53 @@
+/* simpleTreeMenu */
+
+ul.simpleTreeMenu {
+	line-height: 1.75em;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+ul.simpleTreeMenu, ul.simpleTreeMenu ul {
+	margin-left: 0px;
+	padding-left: 15px;
+}
+
+ul.simpleTreeMenu li.Node {
+	list-style-image: url("simpleTreeMenu/menu-arrow-right.png");
+	margin-left: 5px;
+	padding: 0px;
+}
+
+ul.simpleTreeMenu li.Node span {
+	cursor: pointer;
+	display: block;
+}
+
+ul.simpleTreeMenu li.Node span:hover {
+	background-color: #d8d8d0;
+}
+
+ul.simpleTreeMenu li.expanded {
+	list-style-image: url("simpleTreeMenu/menu-arrow-down.png");
+}
+
+ul.simpleTreeMenu li.Leaf {
+	list-style-image: url("simpleTreeMenu/menu-dot.png");
+	margin-left: 5px;
+	padding: 0px;
+}
+
+ul.simpleTreeMenu a, ul.simpleTreeMenu a:visited {
+	display: block;
+	text-decoration: none;
+}
+
+ul.simpleTreeMenu a:hover {
+	background-color: #d8d8d0;
+	text-decoration: none;
+}
+
+ul.simpleTreeMenu li.EmptyNode {
+	/* Override li.Node with your EmptyNode preferences here: */
+	color: #808080;
+}
+
