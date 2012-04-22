@@ -1,5 +1,5 @@
 (function($) {
-
+	
 	var methods = {
 		
 		init: function() {
@@ -10,7 +10,7 @@
 					$(this).addClass("simpleTreeMenu");
 					$this.children("li").each(function() {
 						methods.buildNode($(this));
-					});	
+					});
 					if (private.hasLocalStorage() === true) {
 						state = localStorage.getItem(private.localStorageKey.apply(this))
 						if (state != null) {
@@ -62,7 +62,7 @@
 				localStorage.setItem(private.localStorageKey.apply(this), state.join());
 			}
 		},
-
+			
 		deserialize: function(state) {
 			$('.Node, .Leaf', $(this)).each(function(index) {
 				if (state[index] == private.EXPANDED) {
@@ -85,6 +85,17 @@
 			});
 		},
 		
+		searchForUrl: function() {
+			$('.Leaf', $(this)).each(function() {
+				$leaf = $(this);
+				console.log($leaf);
+				if ($leaf.find('a').attr('href').indexOf(document.location.pathname.slice(1)) >= 0) {
+					methods.expandToNode($leaf);
+					$leaf.addClass('selected');
+				}
+			});
+		},
+		
 		expandAll: function() {
 			$(this).find("li.Node").each(function() {
 				$t = $(this);
@@ -100,11 +111,13 @@
 			if ($li.hasClass("expanded")) {
 				$li.removeClass("expanded");
 			}
-		}
+		},
+		
+		
 	};
-
-	var private = {
 	
+	var private = {
+		
 		EXPANDED: "expanded",
 		COLLAPSED: "collapsed",
 		localStorageKeyPrefix: "jQuery-simpleTreeMenu-treeState-",

@@ -41,6 +41,10 @@ ul.simpleTreeMenu a, ul.simpleTreeMenu a:visited {
 	text-decoration: none;
 }
 
+ul.simpleTreeMenu li.selected {
+	background-color: #c0c0c0;
+}
+
 ul.simpleTreeMenu a:hover {
 	background-color: #d8d8d0;
 	text-decoration: none;
