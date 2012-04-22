@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Simple Tree Menu Example</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script src="jquery-simpleTreeMenu.js"></script>
+	<link href="jquery-simpleTreeMenu.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	
+	<h1>Simple Tree Menu Examples</h1>
+	
+	<div style="width:200px">
+		<ul id="demoTree">
+			<li><a href="">Hello</a></li>
+			<li>
+				<span>Fred</span>
+				<ul>
+					<li><a href="">Foo</a></li>
+					<li>
+						<span>Bar</span>
+						<ul>
+							<li><a href="example.html">Spic</a></li>
+							<li><a href="">Span</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	
+</body>
+
+<script type="text/javascript">
+	$('#demoTree').simpleTreeMenu();
+	$('#demoTree').simpleTreeMenu('searchForUrl');
+</script>
+
+</html>
