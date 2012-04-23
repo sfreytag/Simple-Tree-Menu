@@ -62,7 +62,7 @@
 				localStorage.setItem(private.localStorageKey.apply(this), state.join());
 			}
 		},
-			
+		
 		deserialize: function(state) {
 			$('.Node, .Leaf', $(this)).each(function(index) {
 				if (state[index] == private.EXPANDED) {
@@ -70,7 +70,7 @@
 				}
 			});
 		},
-				
+		
 		expandToNode: function($li) {
 			if ($li.parent().hasClass("simpleTreeMenu")) {
 				if (!$li.hasClass("expanded")) {
@@ -110,9 +110,7 @@
 			if ($li.hasClass("expanded")) {
 				$li.removeClass("expanded");
 			}
-		},
-		
-		
+		},	
 	};
 	
 	var private = {
@@ -122,12 +120,7 @@
 		localStorageKeyPrefix: "jQuery-simpleTreeMenu-treeState-",
 		
 		hasLocalStorage: function() {
-			if (localStorage && localStorage.setItem && localStorage.getItem) {
-				return true;
-			}
-			else {
-				return false;
-			}
+			return (localStorage && localStorage.setItem && localStorage.getItem);
 		},
 		
 		localStorageKey: function() {
