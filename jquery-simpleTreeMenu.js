@@ -88,7 +88,6 @@
 		searchForUrl: function() {
 			$('.Leaf', $(this)).each(function() {
 				$leaf = $(this);
-				console.log($leaf);
 				if ($leaf.find('a').attr('href').indexOf(document.location.pathname.slice(1)) >= 0) {
 					methods.expandToNode($leaf);
 					$leaf.addClass('selected');
