@@ -12,7 +12,9 @@
 						methods.buildNode($(this));
 					});
 					if (private.hasLocalStorage() === true) {
-						state = localStorage.getItem(private.localStorageKey.apply(this))
+						state = localStorage.getItem(
+							private.localStorageKey.apply(this)
+						);
 						if (state != null) {
 							state = state.split(",");
 							if (state.length > 0) {
@@ -55,11 +57,14 @@
 		serialize: function() {
 			state = [];
 			$('.Node, .Leaf', $(this)).each(function() {
-				var s = $(this).hasClass("expanded") ? private.EXPANDED : private.COLLAPSED;
+				var s = $(this).hasClass("expanded") ? 
+					private.EXPANDED : private.COLLAPSED;
 				state.push(s);
 			});
 			if (private.hasLocalStorage() === true) {
-				localStorage.setItem(private.localStorageKey.apply(this), state.join());
+				localStorage.setItem(
+					private.localStorageKey.apply(this), state.join()
+				);
 			}
 		},
 		
@@ -88,7 +93,8 @@
 		searchForUrl: function() {
 			$('.Leaf', $(this)).each(function() {
 				$leaf = $(this);
-				if ($leaf.find('a').attr('href').indexOf(document.location.pathname.slice(1)) >= 0) {
+				current_url = document.location.pathname.slice(1);
+				if ($leaf.find('a').attr('href').indexOf(current_url) >= 0) {
 					methods.expandToNode($leaf);
 					$leaf.addClass('selected');
 				}
@@ -120,7 +126,9 @@
 		localStorageKeyPrefix: "jQuery-simpleTreeMenu-treeState-",
 		
 		hasLocalStorage: function() {
-			return (localStorage && localStorage.setItem && localStorage.getItem);
+			return (
+				localStorage && localStorage.setItem && localStorage.getItem
+			);
 		},
 		
 		localStorageKey: function() {
@@ -131,13 +139,17 @@
 	
 	$.fn.simpleTreeMenu = function(method) {
 		if (methods[method]) {
-			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+			return methods[method].apply(
+				this, Array.prototype.slice.call(arguments, 1)
+			);
 		}
 		else if (typeof method === 'object' || !method) {
 			return methods.init.apply(this, arguments);
 	}
 		else {
-			$.error('Method ' +  method + ' does not exist on jQuery.simpleTreeMenu');
+			$.error(
+				'Method ' +  method + ' does not exist on jQuery.simpleTreeMenu'
+			);
 		}
 	};
 	
