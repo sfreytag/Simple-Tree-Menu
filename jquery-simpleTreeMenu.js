@@ -35,21 +35,19 @@
 			return this.each(function() {
 				var $this = $(this);
 				$this.hide();
-				methods.serialize();
 				$this.children("li").each(function() {
 					methods.buildNode($(this));
 				});
 				$(this).show();
-				methods.initDeserialize();
 			});
 		},
 
 		buildNode: function($li) {
 			if ($li.children("ul").length > 0) {
-				$li.children("ul").hide();
 				var built = false;
 				if ($li.hasClass("Node")) built = true;
 				if (!built) {
+					$li.children("ul").hide();
 					$li.addClass("Node").click(function(event) {
 						var $t = $(this);
 						if ($t.hasClass("expanded")) {
@@ -177,3 +175,4 @@
 		}
 	};
 })(jQuery);
+
