@@ -1,7 +1,7 @@
 (function($) {
-	
+
 	var methods = {
-		
+
 		init: function() {
 			return this.each(function() {
 				var $this = $(this);
@@ -26,34 +26,50 @@
 				}
 			});
 		},
-		
+
+		rebuild: function() {
+			return this.each(function() {
+				var $this = $(this);
+				$this.hide();
+				$this.children("li").each(function() {
+					methods.buildNode($(this));
+				});
+				$(this).show();
+			});
+		},
+
 		buildNode: function($li) {
 			if ($li.children("ul").length > 0) {
 				$li.children("ul").hide();
-				$li.addClass("Node").click(function(event) {
-					var $t = $(this);
-					if ($t.hasClass("expanded")) {
-						$t.removeClass("expanded").children("ul").hide();
+				var built = false;
+				if ($li.hasClass("Node")) built = true;
+				if (!built) {
+					$li.addClass("Node").click(function(event) {
+						var $t = $(this);
+						if ($t.hasClass("expanded")) {
+							$t.removeClass("expanded").children("ul").hide();
+						}
+						else {
+							$t.addClass("expanded").children("ul").show();
+						}
+						event.stopPropagation();
+					});
+					if ($li.children("ul").children("li").length == 0) {
+						$li.addClass("EmptyNode");
 					}
-					else {
-						$t.addClass("expanded").children("ul").show();
-					}
-					event.stopPropagation();
-				});
-				if ($li.children("ul").children("li").length == 0) {
-					$li.addClass("EmptyNode");
 				}
 				$li.children("ul").children("li").each(function() {
 					methods.buildNode($(this));
 				});
 			} else {
+				if ($li.hasClass("Leaf")) return;
 				$li.addClass("Leaf").click(function(event) {
 					event.stopPropagation();
 				});
 				return;
 			}
 		},
-		
+
 		serialize: function() {
 			state = [];
 			$('.Node, .Leaf', $(this)).each(function() {
@@ -67,7 +83,7 @@
 				);
 			}
 		},
-		
+
 		deserialize: function(state) {
 			$('.Node, .Leaf', $(this)).each(function(index) {
 				if (state[index] == private.EXPANDED) {
@@ -75,7 +91,7 @@
 				}
 			});
 		},
-		
+
 		expandToNode: function($li) {
 			if ($li.parent().hasClass("simpleTreeMenu")) {
 				if (!$li.hasClass("expanded")) {
@@ -89,7 +105,7 @@
 				}
 			});
 		},
-		
+
 		searchForUrl: function() {
 			$('.Leaf', $(this)).each(function() {
 				$leaf = $(this);
@@ -100,7 +116,7 @@
 				}
 			});
 		},
-		
+
 		expandAll: function() {
 			$(this).find("li.Node").each(function() {
 				$t = $(this);
@@ -109,34 +125,34 @@
 				}
 			});
 		},
-		
+
 		closeAll: function() {
 			$("ul", $(this)).hide();
 			var $li = $("li.Node");
 			if ($li.hasClass("expanded")) {
 				$li.removeClass("expanded");
 			}
-		},	
+		},
 	};
-	
+
 	var private = {
-		
+
 		EXPANDED: "expanded",
 		COLLAPSED: "collapsed",
 		localStorageKeyPrefix: "jQuery-simpleTreeMenu-treeState-",
-		
+
 		hasLocalStorage: function() {
 			return (
 				localStorage && localStorage.setItem && localStorage.getItem
 			);
 		},
-		
+
 		localStorageKey: function() {
 			return private.localStorageKeyPrefix + $(this).attr("id");
 		}
 		
 	};
-	
+
 	$.fn.simpleTreeMenu = function(method) {
 		if (methods[method]) {
 			return methods[method].apply(
@@ -145,13 +161,12 @@
 		}
 		else if (typeof method === 'object' || !method) {
 			return methods.init.apply(this, arguments);
-	}
+		}
 		else {
 			$.error(
 				'Method ' +  method + ' does not exist on jQuery.simpleTreeMenu'
 			);
 		}
 	};
-	
 })(jQuery);
 
