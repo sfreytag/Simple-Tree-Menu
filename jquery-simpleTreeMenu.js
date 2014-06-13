@@ -60,10 +60,11 @@
 						}
 						event.stopPropagation();
 					});
-					if ($li.children("ul").children("li").length == 0) {
-						$li.addClass("EmptyNode");
-					}
 				}
+				if ($li.children("ul").children("li").length == 0) {
+					$li.addClass("EmptyNode");
+				}
+				else $li.removeClass("EmptyNode");
 				$li.children("ul").children("li").each(function() {
 					methods.buildNode($(this));
 				});
