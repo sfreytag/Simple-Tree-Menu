@@ -11,30 +11,36 @@
 					$this.children("li").each(function() {
 						methods.buildNode($(this));
 					});
-					if (private.hasLocalStorage() === true) {
-						state = localStorage.getItem(
-							private.localStorageKey.apply(this)
-						);
-						if (state != null) {
-							state = state.split(",");
-							if (state.length > 0) {
-								methods.deserialize.call(this, state);
-							}
-						}
-					}
+					methods.initDeserialize();
 					$(this).show();
 				}
 			});
+		},
+
+		initDeserialize: function() {
+			if (private.hasLocalStorage() === true) {
+				var state = localStorage.getItem(
+					private.localStorageKey.apply(this)
+				);
+				if (state != null) {
+					state = state.split(",");
+					if (state.length > 0) {
+						methods.deserialize.call(this, state);
+					}
+				}
+			}
 		},
 
 		rebuild: function() {
 			return this.each(function() {
 				var $this = $(this);
 				$this.hide();
+				methods.serialize();
 				$this.children("li").each(function() {
 					methods.buildNode($(this));
 				});
 				$(this).show();
+				methods.initDeserialize();
 			});
 		},
 
@@ -72,7 +78,7 @@
 
 		serialize: function() {
 			state = [];
-			$('.Node, .Leaf', $(this)).each(function() {
+			$('.Node').each(function() {
 				var s = $(this).hasClass("expanded") ? 
 					private.EXPANDED : private.COLLAPSED;
 				state.push(s);
@@ -85,7 +91,7 @@
 		},
 
 		deserialize: function(state) {
-			$('.Node, .Leaf', $(this)).each(function(index) {
+			$('.Node').each(function(index) {
 				if (state[index] == private.EXPANDED) {
 					$(this).addClass("expanded").children("ul").show();
 				}
@@ -143,7 +149,8 @@
 
 		hasLocalStorage: function() {
 			return (
-				localStorage && localStorage.setItem && localStorage.getItem
+				'localStorage' in window && 'setItem' in window.localStorage
+				&& 'getItem' in window.localStorage
 			);
 		},
 
@@ -169,4 +176,3 @@
 		}
 	};
 })(jQuery);
-
